@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3">
+      <h2 class="text-align">Paramètre de sélection</h2>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <h4>Choix du Sprint: </h4>
+          </div>
+          <div class="col">
+            <div class="dropdown">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Dropdown button
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Link 1</a>
+                <a class="dropdown-item" href="#">Link 2</a>
+                <a class="dropdown-item" href="#">Link 3</a>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <h1 class="text-center">BURNDOWN CHART</h1>
+          </div>
+          <!-- <div class="col-lg-2 sidebar-sticky">
+          </div> -->
+        </div>
+        <div class="row">
+          <div class="col">
+            <div style="display: block">
+              <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                [legend]="barChartLegend" [chartType]="barChartType" style="background-color: whitesmoke">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

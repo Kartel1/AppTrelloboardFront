@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbarMain">
+  <a class="navbar-brand" routerLink = "home">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav" data-parent=".navbar">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink = "profile" >Mon Profil <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="board">Boards</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" href="#">Export Excel</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav my-2 my-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="#">Configurer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="sign-in" *ngIf="!authStatus">Se Connecter</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="sign-up" *ngIf="!authStatus">Créer un Compte</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" *ngIf="authStatus" (click)="onLogout()">Se déconnecter</a>
+      </li>
+    </ul>
+  </div>
+</nav>
