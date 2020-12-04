@@ -2,8 +2,8 @@ export interface TrelloCard {
     card_name: string;
     card_trello_id: string;
     start_processing: string;
-    effort?: null;
-    effort_done?: null;
+    effort?: number;
+    effort_done?: number;
     closed: boolean;
     list: List;
     sprint?: (SprintEntity)[] | null;

@@ -14,8 +14,9 @@ import { share } from 'rxjs/operators';
 export class ProfileTableComponent implements OnInit, OnDestroy {
 
   user: UserLoginInfo;
-  @Input() cards: TrelloCard[];
-  cards$: Observable<TrelloCard[]>;
+  // @Input() cards: TrelloCard[];
+  cards: TrelloCard[];
+  // cards$: Observable<TrelloCard[]>;
   userSubscription: Subscription;
   cardSubscription: Subscription;
   alreadyEdited: boolean;
@@ -40,7 +41,7 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
       }
     );
     this.backEndService.emitCard();
-    this.cards$ = this.backEndService.cardSubject.pipe(share());
+    // this.cards$ = this.backEndService.cardSubject.pipe(share());
   }
 
   onEdition(id: number) {

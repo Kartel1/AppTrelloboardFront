@@ -1,41 +1,43 @@
-<table class="table table-bordered table-hover" style="background-color: white">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Sprint</th>
-      <th scope="col">Nom tableau</th>
-      <th scope="col">Liste</th>
-      <th scope="col">Carte</th>
-      <th scope="col">Date de début</th>
-      <th scope="col">Effort</th>
-      <th scope="col">Effort fait</th>
-      <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let card of (cards$ |async); let i=index">
-      <tr >
-        <th scope="row">{{i+1}}</th>
-        <td>{{card.sprint[0]!.sprint_number  }}</td>
-        <td>{{card.list.board.board_name}}</td>
-        <td>{{card.list.list_name}}</td>
-        <td>{{card.card_name}}</td>
-        <td>{{card.start_processing}}</td>
-        <td>
-          <span *ngIf="!card.isEdited">{{card.effort}}</span>
-          <input *ngIf="card.isEdited" type="text"  [(ngModel)]= "card.effort">
-        </td>
-        <td>
-          <span *ngIf="!card.isEdited">{{card.effort_done}}</span>
-          <input type="text" *ngIf="card.isEdited" [(ngModel)]= "card.effort_done" >
-        </td>
-        <td>{{card.closed?'Fini': 'A faire'}}</td>
-        <td>
-          <button class="btn btn-primary" type="button" *ngIf="!card.isEdited" (click)="onEdition(i)" >Edit</button>
-          <button class="btn-success" type="submit" *ngIf="card.isEdited" (click)="onEditionSave(i)" >Save</button>
-          <button class="btn-danger" type="button" *ngIf="card.isEdited" (click)="onEditionCancel(i)">Cancel</button>
-        </td>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover" style="background-color: white">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Sprint</th>
+        <th scope="col">Nom tableau</th>
+        <th scope="col">Liste</th>
+        <th scope="col">Carte</th>
+        <th scope="col">Date de début</th>
+        <th scope="col">Effort</th>
+        <th scope="col">Effort fait</th>
+        <th scope="col">Status</th>
       </tr>
-    </ng-container>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let card of cards; let i=index">
+        <tr>
+          <th scope="row">{{i+1}}</th>
+          <td>{{card.sprint[0]!.sprint_number  }}</td>
+          <td>{{card.list.board.board_name}}</td>
+          <td>{{card.list.list_name}}</td>
+          <td>{{card.card_name}}</td>
+          <td>{{card.start_processing}}</td>
+          <td>
+            <span *ngIf="!card.isEdited">{{card.effort}}</span>
+            <input *ngIf="card.isEdited" type="text" [(ngModel)]="card.effort">
+          </td>
+          <td>
+            <span *ngIf="!card.isEdited">{{card.effort_done}}</span>
+            <input type="text" *ngIf="card.isEdited" [(ngModel)]="card.effort_done">
+          </td>
+          <td>{{card.closed?'Fini': 'A faire'}}</td>
+          <td>
+            <button class="btn btn-primary" type="button" *ngIf="!card.isEdited" (click)="onEdition(i)">Edit</button>
+            <button class="btn-success" type="submit" *ngIf="card.isEdited" (click)="onEditionSave(i)">Save</button>
+            <button class="btn-danger" type="button" *ngIf="card.isEdited" (click)="onEditionCancel(i)">Cancel</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

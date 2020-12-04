@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   cards: TrelloCard[];
   cardSubscription: Subscription;
+  isBoardReady = false;
   constructor(private backEndService: BackendService,
               private userService: UserService) { }
 
@@ -37,11 +38,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     );
     this.backEndService.emitCard();
-    this.backEndService.getTrelloBoardInfosByUser(this.user) .pipe(share()).subscribe(
+    this.backEndService.getTrelloBoardInfosByUser(this.user).pipe(share()).subscribe(
       (value: TrelloCard[]) => {
           this.cards = value.slice();
           this.backEndService.setCard(value);
           this.backEndService.emitCard();
+          this.isBoardReady = true;
       },
       (error) => {
           console.log(error);
