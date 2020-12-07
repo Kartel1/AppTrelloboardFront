@@ -2,7 +2,7 @@ import { share } from 'rxjs/operators';
 import { CardTracking, SprintEntity } from './../interfaces/card-by-user';
 import { UserService } from './../services/user.service';
 import { BackendService } from './../services/backend.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as moment from 'moment';
 import { Subscription, Observable, of } from 'rxjs';
 import { TrelloCard } from '../interfaces/card-by-user';
@@ -13,14 +13,14 @@ import { UserLoginInfo } from '../interfaces/user-login-infos';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss']
 })
-export class ChartComponent implements OnInit, OnDestroy {
+export class ChartComponent implements OnInit, OnDestroy, OnChanges {
 
-  user: UserLoginInfo;
-  userSubscription: Subscription;
+  @Input() user: UserLoginInfo;
+  // userSubscription: Subscription;
   cards: TrelloCard[];
-  cardSubscription: Subscription;
-  selectedSprint: SprintEntity;
-  selectedSprintSubscription: Subscription;
+  // cardSubscription: Subscription;
+  @Input() selectedSprint: SprintEntity;
+  // selectedSprintSubscription: Subscription;
   dataToDisplay: number[];
   isChartReady = false;
 
@@ -29,6 +29,7 @@ export class ChartComponent implements OnInit, OnDestroy {
               private userService: UserService) {
 
   }
+  
 
   public barChartOptions = {
     scaleShowVerticalLines: false,
@@ -41,24 +42,59 @@ export class ChartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.userSubscription = this.userService.userSubject.subscribe(
-      (user: UserLoginInfo) => {
-        this.user = user;
-      }
-    );
-    this.userService.emitUser();
-    this.cardSubscription = this.backendService.cardSubject.subscribe(
-      (cards: TrelloCard[]) => {
-        this.cards = cards.slice();
-      }
-    );
-    this.backendService.emitCard();
-    this.selectedSprintSubscription = this.backendService.selectedSprintSubject.subscribe(
-      (selectedSprint: SprintEntity) => {
-        this.selectedSprint = selectedSprint;
-      }
-    );
-    this.backendService.emitSelectedSprint();
+    // this.userSubscription = this.userService.userSubject.subscribe(
+    //   (user: UserLoginInfo) => {
+    //     this.user = user;
+    //   }
+    // );
+    // this.userService.emitUser();
+    // this.cardSubscription = this.backendService.cardSubject.subscribe(
+    //   (cards: TrelloCard[]) => {
+    //     this.cards = cards.slice();
+    //   }
+    // );
+    // this.backendService.emitCard();
+    // this.selectedSprintSubscription = this.backendService.selectedSprintSubject.subscribe(
+    //   (selectedSprint: SprintEntity) => {
+    //     this.selectedSprint = selectedSprint;
+    //   }
+    // );
+    // this.backendService.emitSelectedSprint();
+    // let globalEffort = 0;
+    // let leadingCoeff: number;
+    // const idealLine: number[] = [];
+    // const date = new Date(Date.now());
+    // const dateMoment = moment(date, 'DD/MM/YYYY');
+    // const beggingDate = moment(this.selectedSprint.start_date, 'YYYY-MM-DD');
+    // const endDate = moment(this.selectedSprint.end_date, 'YYYY-MM-DD');
+    // const duration = endDate.diff(beggingDate, 'days');
+    // const currentDay = endDate.diff(dateMoment, 'days') > 0 ? dateMoment.diff(beggingDate, 'days') : duration;
+    // this.backendService.getTrelloBoardCardEffort(this.user, this.selectedSprint.sprint_number, currentDay).pipe(share()).subscribe(
+    //   (value: TrelloCard[]) => {
+    //     // this.backendService.setCard(value);
+    //     // this.backendService.emitCard();
+    //     for (const card of this.cards) {
+    //       if (card.effort) {
+    //         globalEffort += card.effort;
+    //       }
+    //     }
+    //     for (let i = 0; i <= duration; i++) {
+    //       this.barChartLabels.push(i);
+    //       leadingCoeff = -(globalEffort / duration) * i + globalEffort;
+    //       idealLine.push(leadingCoeff);
+    //     }
+    //     this.barChartData.push({ data: idealLine, label: 'Ideal' });
+    //     this.dataToDisplay = this.formatData(this.cards, duration);
+    //     // this.barChartData.push({ data: this.dataToDisplay, label: 'Current', borderColor: 'rgba(0, 204, 255,1)', backgroundColor: 'rgba(0, 204, 255,0.4)', pointHoverBorderColor: 'rgba(0, 204, 255,0.8)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff' });
+    //     this.barChartData.push({ data: this.dataToDisplay, label: 'Current'});
+    //     this.isChartReady = true;
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
+  }
+  ngOnChanges(changes: SimpleChanges): void {
     let globalEffort = 0;
     let leadingCoeff: number;
     const idealLine: number[] = [];
@@ -70,8 +106,9 @@ export class ChartComponent implements OnInit, OnDestroy {
     const currentDay = endDate.diff(dateMoment, 'days') > 0 ? dateMoment.diff(beggingDate, 'days') : duration;
     this.backendService.getTrelloBoardCardEffort(this.user, this.selectedSprint.sprint_number, currentDay).pipe(share()).subscribe(
       (value: TrelloCard[]) => {
-        this.backendService.setCard(value);
-        this.backendService.emitCard();
+        this.cards = value;
+        // this.backendService.setCard(value);
+        // this.backendService.emitCard();
         for (const card of this.cards) {
           if (card.effort) {
             globalEffort += card.effort;
@@ -94,8 +131,8 @@ export class ChartComponent implements OnInit, OnDestroy {
     );
   }
   ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
-    this.cardSubscription.unsubscribe();
+    // this.userSubscription.unsubscribe();
+    // this.cardSubscription.unsubscribe();
   }
 
   formatData(cardToFormat: TrelloCard[], duration: number): number[] {
@@ -144,5 +181,4 @@ export class ChartComponent implements OnInit, OnDestroy {
     }
     return finalArray;
   }
-
 }

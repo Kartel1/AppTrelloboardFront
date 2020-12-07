@@ -20,6 +20,7 @@ import { ProfileTableComponent } from './profile/profile-table/profile-table.com
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { ChartsModule } from 'ng2-charts';
 import { FooterComponent } from './footer/footer.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FooterComponent } from './footer/footer.component';
     ChartComponent,
     ProfileTableComponent,
     UserEditComponent,
-    FooterComponent
+    FooterComponent,
+    ConfigurationComponent
 
   ],
   imports: [

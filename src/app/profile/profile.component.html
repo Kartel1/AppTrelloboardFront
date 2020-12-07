@@ -1,89 +1,47 @@
-<div class="container-fluid" *ngIf="isBoardReady">
+<div class="container-fluid first-container align-self-center">
   <div class="row">
     <div class="col-sm-3">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col">
-            <h4>Mes informations</h4>
+      <div class="profile-picture">
+        <div class="status">3</div>
+        <div class="front">
+          <img src="../../assets/media/Anonymous.png" alt="">
+          <h3 class="name">{{user.username}}</h3>
+          <div class="infos">
+            <p class="tasks-number">2 tâches </p>
+            <div class="roles">
+              <img src="../../assets/media/icons/iconfinder_SEO_awards_969266.svg" alt="">
+              <img src="../../assets/media/icons/iconfinder_Programming_Development_keywords_1743798.svg" alt="">
+              <img src="../../assets/media/icons/iconfinder_seo_programming_1009241.svg" alt="">
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <img src="../../assets/media/Anonymous.png" class="img-rounded" alt="Avatar" width="80%">
+        <div class="back">
+          <div class="user-infos">
+            <p class="user-detail">Email<span>{{user.email}}</span></p>
+          </div>
+          <a routerLink="/edit-profile" class="btn btn-info" role="button">Modifier mes infos</a>
+          <div class="roles">
+            <div class="role">
+              <div class="icon"><img src="../../assets/media/icons/iconfinder_SEO_awards_969266.svg" alt=""></div>
+              <p class="type">Product Owner</p>
+            </div>
+            <div class="role">
+              <div class="icon"><img
+                  src="../../assets/media/icons/iconfinder_Programming_Development_keywords_1743798.svg" alt=""></div>
+              <p class="type">Admin</p>
+            </div>
+            <div class="role">
+              <div class="icon"><img src="../../assets/media/icons/iconfinder_seo_programming_1009241.svg" alt=""></div>
+              <p class="type">Dev</p>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <p><b>Pseudo: {{user.username}}</b></p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p>Adresse mail:{{user.email}}</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p>Mes informations:</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <a routerLink="/edit-profile" class="btn btn-info" role="button">Modifier mes infos</a>
-          </div>
+        <div class="user-back">
         </div>
       </div>
     </div>
-    <div class="col-sm-9 align-self-center">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col">
-            <app-profile-table></app-profile-table>
-          </div>
-        </div>
-      </div>
+    <div class="col-sm-9">
+      <app-profile-table [cards]="cards" [user]="user"></app-profile-table>
     </div>
   </div>
 </div>
-
-<!-- <div class="row">
-  <div class="col-lg-2 sidebar-sticky">
-    <h4>Mes informations</h4>
-    <ul class="nav nav-pills nav-stacked">
-      <li class="#">
-        <img src="../../assets/media/Anonymous.png" class="img-rounded" alt="Avatar" width="80%">
-      </li>
-      <li><b>Pseudo: {{user.username}}</b></li>
-      <li>Adresse mail:{{user.email}}</li>
-      <li>Mes informations:</li>
-    </ul><br>
-    <a routerLink="/edit-profile" class="btn btn-info" role="button">Modifier mes infos</a>
-  </div>
-  <div class="col-lg-9 align-self-center">
-    <div class="container">
-      <div class="col-lg-12 sidenav ">
-        <app-profile-table></app-profile-table>
-      </div>
-    </div>
-  </div>
-</div> -->
-<!-- <div class="row">
-  <div class="card" style="width:300px">
-    <img src="../../assets/media/Anonymous.png" class="card-img-top img-rounded" alt="Avatar" width="80%">
-    <div class="div card-body">
-
-        <p class="card-title">Mes informations<p>
-        <p class="card-text">Pseudo: {{user.username}}</p>
-        <p class="card-text">Adresse mail:{{user.email}}</p>
-        <p class="card-text">Mes informations:</p>
-      <a routerLink="/edit-profile" class="btn btn-info" role="button">Modifier mes infos</a>
-    </div>
-  </div>
-  <div class="col-lg-9 align-self-center">
-    <div class="container-fluid">
-      <div class="col-lg-12 sidenav ">
-        <app-profile-table></app-profile-table>
-      </div>
-    </div>
-  </div>
-</div> -->

@@ -1,16 +1,188 @@
 /* You can add global styles to this file, and also import other style files */
-body {
-    background-image: url("./assets/media/bx45.png");
-    background-size: auto auto;
-
+:root {
+  --clr-dark: rgb(13, 17, 19);
+  --br: 0.5em;
+  --transition: transform 200ms cubic-bezier(0.27, 0.76, 0.31, 0.78);
 }
 
-html, body{
-    height: 100%;
-    padding: 0;
-    margin: 0;
-   }
+body {
+  background-image: url("./assets/media/bx45.png");
+  background-size: auto auto;
+}
 
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 400px) {
+  .container-fluid {
+    width: 90%;
+  }
+}
+
+.first-container {
+  padding-top: 100px;
+  //   padding-left: 150px;
+  //   padding-right: 150px;
+}
+
+.container-fluid * .container-fluid {
+  padding-top: 15px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+.profile-picture {
+  width: 12.5em;
+  position: relative;
+  cursor: pointer;
+  margin: auto;
+  & p,
+  .name {
+    color: white;
+  }
+}
+.status {
+  position: absolute;
+  top: 0;
+  right: 1em;
+  z-index: 1;
+  font-weight: bold;
+  font-size: 1.125rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5em 0.5em 0.75em;
+  clip-path: polygon(100% 0, 100% 100%, 50% 87%, 0 100%, 0% 0%);
+  transition: var(--transition);
+}
+
+.front {
+  transition: 250ms;
+  .name {
+    margin: 0.75em 0;
+  }
+
+  .infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // border: 1px solid red;
+  }
+  .roles img {
+    border: 1px solid var(--clr-dark);
+    &:nth-of-type(1) {
+      transform: translateX(50%);
+      z-index: 1;
+    }
+    &:nth-of-type(2) {
+      transform: translateX(25%);
+    }
+  }
+}
+.front > img {
+  border: 1px solid black;
+  border-radius: var(--br);
+  background-color: whitesmoke;
+}
+
+.roles {
+  display: flex;
+  img {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background-color: white;
+    text-align: center;
+  }
+}
+// .user-infos{
+//     columns: 2;
+// }
+
+.back {
+  position: absolute;
+  opacity: 0;
+  top: 55%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5em;
+  transform: translateY(35%);
+  .btn {
+    padding: 0.5em 1.5em;
+    margin: auto;
+  }
+
+  .user-detail {
+    font-size: 1.125rem;
+    text-align: center;
+    span {
+      display: block;
+      font-size: 0.9rem;
+    }
+  }
+}
+.user-back {
+  background: #234;
+  position: absolute;
+  top: 0%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  opacity: 0;
+  transform: scale(0.2, 0.9);
+  border-radius: var(--br);
+}
+img {
+  max-width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  .profile-picture:hover {
+    .status {
+      transform: translate(135%, -27%);
+      background: red;
+    }
+    .front {
+      transform: translateY(-30%) scale(0.8);
+      .infos {
+        opacity: 0;
+      }
+      h3 {
+        padding-bottom: 0.7em;
+      }
+    }
+    .back {
+      opacity: 1;
+      transition: transform 250ms ease, opacity 150ms linear;
+      transform: translateY(0);
+      .roles {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .role {
+        font-size: 0.9rem;
+      }
+      .type {
+        font-weight: bold;
+      }
+    }
+    .user-back {
+      transition: var(--transition), opacity 100ms linear;
+      opacity: 1;
+      transform: scale(1.35, 1.2) translateY(5%);
+    }
+  }
+}
 // .footer {
 //     position: fixed;
 //     left: 0;
@@ -20,6 +192,6 @@ html, body{
 //     // color: white;
 //     text-align: center;
 //   }
-.footer{
-    text-align: center;
-  }
+.footer {
+  text-align: center;
+}

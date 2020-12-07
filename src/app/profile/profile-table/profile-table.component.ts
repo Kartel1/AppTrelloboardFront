@@ -13,9 +13,9 @@ import { share } from 'rxjs/operators';
 })
 export class ProfileTableComponent implements OnInit, OnDestroy {
 
-  user: UserLoginInfo;
-  // @Input() cards: TrelloCard[];
-  cards: TrelloCard[];
+  @Input ()user: UserLoginInfo;
+  @Input() cards: TrelloCard[];
+  // cards: TrelloCard[];
   // cards$: Observable<TrelloCard[]>;
   userSubscription: Subscription;
   cardSubscription: Subscription;
@@ -28,19 +28,19 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.userSubscription = this.userService.userSubject.subscribe(
-      (user: UserLoginInfo) => {
-        this.user = user;
-      }
-    );
-    this.userService.emitUser();
+    // this.userSubscription = this.userService.userSubject.subscribe(
+    //   (user: UserLoginInfo) => {
+    //     this.user = user;
+    //   }
+    // );
+    // this.userService.emitUser();
 
-    this.cardSubscription = this.backEndService.cardSubject.subscribe(
-      (cards: TrelloCard[]) => {
-        this.cards = cards;
-      }
-    );
-    this.backEndService.emitCard();
+    // this.cardSubscription = this.backEndService.cardSubject.subscribe(
+    //   (cards: TrelloCard[]) => {
+    //     this.cards = cards;
+    //   }
+    // );
+    // this.backEndService.emitCard();
     // this.cards$ = this.backEndService.cardSubject.pipe(share());
   }
 
@@ -74,7 +74,7 @@ export class ProfileTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.cardSubscription.unsubscribe();
-    this.userSubscription.unsubscribe();
+    // this.cardSubscription.unsubscribe();
+    // this.userSubscription.unsubscribe();
   }
 }

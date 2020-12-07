@@ -12,7 +12,7 @@
                     <div class="col">
                         <div class="dropdown">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                Dropdown button
+                                Sprint
                             </button>
                             <div class="dropdown-menu">
                                 <ng-container *ngFor="let sprint of sprints; let i = index">
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="col-sm-9" *ngIf="selectedSprint">
-            <app-chart></app-chart>
+            <app-chart [selectedSprint]="selectedSprint" [user]="user"></app-chart>
         </div>
     </div>
 </div>

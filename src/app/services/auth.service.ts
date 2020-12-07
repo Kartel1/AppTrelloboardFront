@@ -19,11 +19,11 @@ export class AuthService {
                 private router: Router) { }
 
     signIn(auth: AuthModel): Observable<UserLoginInfo> {
-       return this.httpClient.post<UserLoginInfo>(this.backendService.BACKENDROUTE + 'login', auth);
+       return this.httpClient.post<UserLoginInfo>(this.backendService.BACKENDROUTE + 'login', auth, this.backendService.httpOptions);
     }
 
     signOut() {
-        this.httpClient.get(this.backendService.BACKENDROUTE + 'api-logout').subscribe(
+        this.httpClient.get(this.backendService.BACKENDROUTE + 'api-logout', this.backendService.httpOptions).subscribe(
             () => {
                 this.isAuth = false;
                 sessionStorage.clear();
@@ -37,7 +37,7 @@ export class AuthService {
     }
 
     loginToTrello() {
-        this.httpClient.get<string>(this.backendService.BACKENDROUTE + 'trello-api-get-token').subscribe(
+        this.httpClient.get<string>(this.backendService.BACKENDROUTE + 'trello-api-get-token', this.backendService.httpOptions).subscribe(
             (value) => {
                 window.location.replace(value);
             },

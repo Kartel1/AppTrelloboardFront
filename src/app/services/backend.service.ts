@@ -17,7 +17,7 @@ export class BackendService {
     selectedSprintSubject = new Subject<SprintEntity>();
     httpOptions = {
         headers: new HttpHeaders({
-        'content-type':  'application/json'
+        'Content-Type':  'application/json'
         })
       };
     constructor(private httpClient: HttpClient) {

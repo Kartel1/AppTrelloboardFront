@@ -1,3 +1,5 @@
+import { UserLoginInfo } from './../interfaces/user-login-infos';
+import { UserService } from './../services/user.service';
 import { share } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { SprintEntity } from './../interfaces/card-by-user';
@@ -15,10 +17,18 @@ export class BoardsComponent implements OnInit {
   sprintsSubscription: Subscription;
   selectedSprint: SprintEntity;
   selectedSprintSubscription: Subscription;
+  user: UserLoginInfo;
+  userSubscription: Subscription;
 
-  constructor(private backendService: BackendService) { }
+  constructor(private backendService: BackendService, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.userSubscription = this.userService.userSubject.subscribe(
+      (user: UserLoginInfo) =>{
+        this.user = user;
+      }
+    );
+    this.userService.emitUser();
     this.sprintsSubscription = this.backendService.sprintsSubject.subscribe(
       (sprints: SprintEntity[]) => {
         this.sprints = sprints;
