@@ -24,7 +24,7 @@ export class BoardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSubscription = this.userService.userSubject.subscribe(
-      (user: UserLoginInfo) =>{
+      (user: UserLoginInfo) => {
         this.user = user;
       }
     );

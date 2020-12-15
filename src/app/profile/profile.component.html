@@ -1,6 +1,6 @@
-<div class="container-fluid first-container align-self-center">
+<div class="container-fluid first-container align-self-center ">
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-3 stack">
       <div class="profile-picture">
         <div class="status">3</div>
         <div class="front">
@@ -19,7 +19,9 @@
           <div class="user-infos">
             <p class="user-detail">Email<span>{{user.email}}</span></p>
           </div>
-          <a routerLink="/edit-profile" class="btn btn-info" role="button">Modifier mes infos</a>
+          <div class="edit-btn">
+            <a routerLink="/edit-profile" class="btn btn-info" role="button">Modifier mes infos</a>
+          </div>
           <div class="roles">
             <div class="role">
               <div class="icon"><img src="../../assets/media/icons/iconfinder_SEO_awards_969266.svg" alt=""></div>
@@ -40,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-9 stack">
       <app-profile-table [cards]="cards" [user]="user"></app-profile-table>
     </div>
   </div>

@@ -1,0 +1,41 @@
+
+svg{
+    // margin: 1.5em auto;
+    width: 100%;
+    path#cloud-left{
+        fill: #D5D5D5;
+        transform: translate(0 27.6);
+        -webkit-transform: translate(0 27.6);
+    }
+    
+    path#cloud-right{
+        fill: #D5D5D5;
+    }
+
+    path#wind{
+        transform: translateY(65px);
+    }
+
+    path#wind-2{
+        transform: translateY(75px);
+
+    }
+    path#award-draw{
+        opacity: 0;
+    }
+}
+
+.connection{
+    padding: 1.5em .75em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .btn{
+        font-size: 1.25rem;
+        border-radius: 57px;
+        color: white;
+        background-color: #487CC9;
+        text-align: center;
+        padding: 1em 2em;
+    }
+}

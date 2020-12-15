@@ -16,11 +16,11 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardsComponent } from './boards/boards.component';
 import { ChartComponent } from './chart/chart.component';
-import { ProfileTableComponent } from './profile/profile-table/profile-table.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { ChartsModule } from 'ng2-charts';
 import { FooterComponent } from './footer/footer.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { ProfileTableComponent } from './profile/profile-table/profile-table.component';
 
 @NgModule({
   declarations: [

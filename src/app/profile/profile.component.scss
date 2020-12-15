@@ -1,0 +1,330 @@
+.stack {
+  margin: 2em auto;
+}
+
+.profile-picture {
+  width: 100%;
+  max-width: 370px;
+  position: relative;
+  cursor: pointer;
+  margin: auto;
+  & p,
+  .name {
+    color: black;
+  }
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 0.3fr);
+}
+.status {
+  position: absolute;
+  z-index: 1;
+  font-weight: bold;
+  font-size: 1.125rem;
+  background: rgba(0, 0, 0, 0.5);
+  margin-left: 0.5em;
+  padding: 0.5em 0.5em 0.75em;
+  clip-path: polygon(100% 0, 100% 100%, 50% 87%, 0 100%, 0% 0%);
+  transition: var(--transition);
+  grid-area: 1/2/2/3;
+}
+
+.front {
+  grid-area: 1/1/2/4;
+  transition: 250ms;
+  display: flex;
+  justify-content: space-around;
+  .name {
+    font-size: 1.25rem;
+    margin: 1em 0;
+    padding-left: 1.5em;
+  }
+
+  .infos {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    // border: 1px solid red;
+  }
+  .roles img {
+    border: 1px solid var(--clr-dark);
+    &:nth-of-type(1) {
+      transform: translateX(50%);
+      z-index: 1;
+    }
+    &:nth-of-type(2) {
+      transform: translateX(25%);
+    }
+  }
+}
+.front > img {
+  border: 1px solid black;
+  border-radius: var(--br);
+  background-color: whitesmoke;
+  margin: -2em 0 -0.7em -1em;
+  padding: 0.5em 0.5em 2em;
+  object-fit: contain;
+}
+
+.roles {
+  display: flex;
+  img {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background-color: white;
+    text-align: center;
+  }
+}
+// .user-infos{
+//     columns: 2;
+// }
+
+.back {
+  // position: absolute;
+  // opacity: 1;
+  // top: 15%;
+  // left: 0;
+  // right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  // flex-direction: column;
+  // align-items: center;
+  // gap: 1.5em;
+  // transform: translateY(35%);
+  grid-area: 2/1/3/4;
+  .user-infos {
+    width: 100%;
+    margin: -1.5em 0 1em 9em;
+  }
+  .edit-btn {
+    flex-basis: 50%;
+    .btn {
+      font-size: 0.6rem;
+      padding: 0.5em 1.5em;
+      margin: 1em 0 2em 2em;
+      border-radius: 15px;
+    }
+  }
+  .user-detail {
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1.2em;
+    span {
+      display: block;
+      font-size: 0.6rem;
+    }
+  }
+  .roles {
+    width: 50%;
+    justify-content: space-around;
+    align-items: center;
+    & p {
+      display: none;
+    }
+  }
+}
+.user-back {
+  background: #e5dada;
+  // position: absolute;
+  // top: 0%;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+  grid-area: 1/1/3/4;
+  z-index: -1;
+  opacity: 1;
+  // transform: scale(3.8, 0.7);
+  border-radius: var(--br);
+}
+img {
+  max-width: 5em;
+}
+
+@media screen and (min-width: 1024px) {
+  /* Backup */
+  .profile-picture {
+    width: 12.5em;
+    position: relative;
+    cursor: pointer;
+    margin: auto;
+    display: flex;
+    & p,
+    .name {
+      color: white;
+    }
+  }
+  .status {
+    position: absolute;
+    top: 0;
+    right: 1em;
+    z-index: 1;
+    font-weight: bold;
+    font-size: 1.125rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.5em 0.5em 0.75em;
+    clip-path: polygon(100% 0, 100% 100%, 50% 87%, 0 100%, 0% 0%);
+    transition: var(--transition);
+  }
+
+  .front {
+    display: inline;
+    transition: 250ms;
+    .name {
+      margin: 0.75em 0;
+      padding-left: unset;
+      font-size: 1.75rem;
+    }
+
+    .infos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // border: 1px solid red;
+    }
+    .roles img {
+      border: 1px solid var(--clr-dark);
+      &:nth-of-type(1) {
+        transform: translateX(50%);
+        z-index: 1;
+      }
+      &:nth-of-type(2) {
+        transform: translateX(25%);
+      }
+    }
+  }
+  .front > img {
+    border: 1px solid black;
+    border-radius: var(--br);
+    background-color: whitesmoke;
+    margin: auto;
+    padding: unset;
+    // transform: translateX(-90%);
+  }
+
+  .roles {
+    display: flex;
+    img {
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      background-color: white;
+      text-align: center;
+    }
+  }
+  // .user-infos{
+  //     columns: 2;
+  // }
+
+  .back {
+    position: absolute;
+    opacity: 0;
+    top: 55%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+    transform: translateY(35%);
+    .edit-btn {
+      .btn {
+        font-size: 1rem;
+        padding: 0.5em 1.5em;
+        margin: auto;
+      }
+    }
+
+    .user-detail {
+      font-size: 1.125rem;
+      text-align: center;
+      margin: auto;
+      span {
+        display: block;
+        font-size: 0.9rem;
+      }
+    }
+  }
+  .user-back {
+    background: #234;
+    position: absolute;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    opacity: 0;
+    transform: scale(0.2, 0.9);
+    border-radius: var(--br);
+  }
+  img {
+    max-width: 100%;
+  }
+  /* backup */
+
+  .profile-picture:hover {
+    .status {
+      transform: translate(135%, -27%);
+      background: red;
+    }
+    .front {
+      transform: translateY(-30%) scale(0.8);
+      .infos {
+        opacity: 0;
+      }
+      h3 {
+        padding-bottom: 0.7em;
+      }
+      .name {
+        animation: userName 250ms forwards;
+      }
+    }
+    .back {
+      opacity: 1;
+      transition: transform 250ms ease, opacity 150ms linear;
+      transform: translateY(0);
+      .roles {
+        width: 100%;
+        justify-content: space-between;
+        & p {
+          display: unset;
+        }
+      }
+      .role {
+        font-size: 1rem;
+      }
+      .type {
+        font-weight: bold;
+      }
+      .user-infos {
+        width: 100%;
+        margin: auto;
+      }
+    }
+    .user-back {
+      transition: var(--transition), opacity 100ms linear;
+      opacity: 1;
+      transform: scale(1.35, 1.2) translateY(5%);
+    }
+  }
+
+  @keyframes userName {
+    0% {
+      text-align: left;
+      opacity: 1;
+    }
+    20% {
+      text-align: left;
+      opacity: 0;
+    }
+    50% {
+      text-align: center;
+      opacity: 0;
+    }
+    100% {
+      text-align: center;
+      opacity: 1;
+    }
+  }
+}

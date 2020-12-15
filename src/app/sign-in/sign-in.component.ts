@@ -1,3 +1,4 @@
+import { TimelineMax, Back } from 'gsap';
 import { UserLoginInfo } from './../interfaces/user-login-infos';
 import { AuthModel } from './../models/Auth.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { share } from 'rxjs/operators';
+import { left } from '@popperjs/core';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,10 +19,11 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   signInForm: FormGroup;
   userSubscription: Subscription;
-  authSubscription: Subscription
+  authSubscription: Subscription;
   user: UserLoginInfo;
   auth: AuthModel;
   isAuth: boolean;
+  showModal = false;
   constructor(private formbuilder: FormBuilder,
               private userService: UserService,
               private authService: AuthService,
@@ -40,43 +43,62 @@ export class SignInComponent implements OnInit, OnDestroy {
       }
     );
     this.authService.emitAuthStatus();
+    this.intro();
   }
 
-  initForm(): void{
+  initForm(): void {
     this.signInForm = this.formbuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(/[a-zA-Z0-9]{6,9}/)]]
     });
   }
-  onSubmitForm(){
+  onSubmitForm() {
     const formValue = this.signInForm.value;
     const email = 'email';
     const password = 'password';
     this.auth = new AuthModel(formValue[email],
-                              formValue[password],
-                              false
+      formValue[password],
+      false
     );
     this.authService.signIn(this.auth).pipe(share())
-    .subscribe(
+      .subscribe(
         (value: UserLoginInfo) => {
-            this.user = value;
-            this.isAuth = this.user.is_authenticated;
-            sessionStorage.setItem('isAuth', JSON.stringify(this.isAuth));
-            sessionStorage.setItem('user', JSON.stringify(this.user));
-            this.userService.setUser(this.user);
-            this.userService.emitUser();
-            this.authService.setAuthSatus(this.isAuth);
-            this.authService.emitAuthStatus();
-            this.router.navigate(['home']);
+          this.user = value;
+          this.isAuth = this.user.is_authenticated;
+          sessionStorage.setItem('isAuth', JSON.stringify(this.isAuth));
+          sessionStorage.setItem('user', JSON.stringify(this.user));
+          this.userService.setUser(this.user);
+          this.userService.emitUser();
+          this.authService.setAuthSatus(this.isAuth);
+          this.authService.emitAuthStatus();
+          this.router.navigate(['home']);
         },
         (error) => {
-            console.log('Erreur de connexion ' + error);
+          console.log('Erreur de connexion ' + error);
         }
-    );;
+      );
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSubscription.unsubscribe();
+  }
+
+
+  show() {
+    this.showModal = true;
+
+  }
+
+  hide() {
+    this.showModal = false;
+  }
+  intro() {
+    const tl = new TimelineMax({ defaults: { duration: 1.5, opacity: 0 } });
+    tl.to('#cloud-left', 2, { opacity: 1, translateX: -70, /* ease: Back.easeInOut */ })
+      .to('#cloud-right', 2, { opacity: 1, translateX: 140 }, '-=2')
+      .to('path#award-draw', 2, { opacity: 1, transformOrigin: 'center', translateX: -60 }, '-=2')
+      .to('#icon-43-wind', 2, { opacity: 1, translateX: -70 }, '-=2')
+      .to('#icon-43-wind-2', 2, { opacity: 1, translateX: 160 }, '-=2');
   }
 
 }
