@@ -21,6 +21,7 @@ import { ChartsModule } from 'ng2-charts';
 import { FooterComponent } from './footer/footer.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ProfileTableComponent } from './profile/profile-table/profile-table.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ProfileTableComponent } from './profile/profile-table/profile-table.com
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    FlexLayoutModule
   ],
   providers: [
     AuthService,

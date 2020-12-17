@@ -1,13 +1,5 @@
 <div class="container">
     <h1 class="title">Suivez vos projets avec TrelloBoard</h1>
-    <!-- <svg id="Layer_1_1_" viewBox="0 0 40 40">
-        <g>
-            <path class="cloud-left"
-            d="M13.778,7.556c-0.002,0-0.005,0.001-0.007,0.001c0.171-0.806,0.137-1.686-0.296-2.622C12.862,3.61,11.607,2.62,10.16,2.436  C8.148,2.18,6.369,3.327,5.66,5.032C5.421,4.94,5.161,4.889,4.889,4.889c-1.227,0-2.222,0.995-2.222,2.222  c0,0.176,0.025,0.344,0.064,0.508C2.198,7.494,1.614,7.508,0.906,8.08C0.38,8.506-0.007,9.126,0,9.803  C0.014,11.019,1.003,12,2.222,12h11.449c1.039,0,2.019-0.661,2.262-1.671C16.286,8.863,15.185,7.556,13.778,7.556z" />
-            <path class="cloud-right"
-            d="M13.778,7.556c-0.002,0-0.005,0.001-0.007,0.001c0.171-0.806,0.137-1.686-0.296-2.622C12.862,3.61,11.607,2.62,10.16,2.436  C8.148,2.18,6.369,3.327,5.66,5.032C5.421,4.94,5.161,4.889,4.889,4.889c-1.227,0-2.222,0.995-2.222,2.222  c0,0.176,0.025,0.344,0.064,0.508C2.198,7.494,1.614,7.508,0.906,8.08C0.38,8.506-0.007,9.126,0,9.803  C0.014,11.019,1.003,12,2.222,12h11.449c1.039,0,2.019-0.661,2.262-1.671C16.286,8.863,15.185,7.556,13.778,7.556z" />
-        </g>
-    </svg> -->
     <svg width="170" height="170" viewBox="0 0 170 170">
         <path id="cloud-left"
             d="M17.829,51.24c.016,0,.04.009.056.009a44.85,44.85,0,0,1,2.376-24.838C25.181,13.86,35.253,4.482,46.867,2.739,63.015.313,77.293,11.179,82.983,27.33a14.9,14.9,0,0,1,6.188-1.355C99.019,25.976,107,35.4,107,47.024a24.205,24.205,0,0,1-.514,4.812c4.278-1.184,8.965-1.051,14.647,4.367a22.738,22.738,0,0,1,7.271,16.322c-.112,11.519-8.05,20.812-17.833,20.812H18.688c-8.339,0-16.2-6.262-18.154-15.829C-2.3,63.621,6.537,51.24,17.829,51.24Z"
@@ -50,9 +42,9 @@
     </div>
 </div>
 
-<div class="container">
-    <div [style.display]="showModal ? 'block' : 'none'" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+<div [style.display]="showModal ? 'block' : 'none'" class="modal" tabindex="-1" role="dialog">
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmitForm()">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Se connecter</h5>
@@ -60,31 +52,28 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form [formGroup]="signInForm" (ngSubmit)="onSubmitForm()">
-                    <div class="modal-body">
-
-                        <div class="form-group">
-                            <label for="email"> Email
-                            </label>
-                            <input type="text" class="form-control" id="sign-in-email" formControlName="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="password"> Mot de passe
-                            </label>
-                            <input type="password" class="form-control" id="sign-in-password"
-                                formControlName="password">
-                        </div>
+                <form [formGroup]="signInForm" (ngSubmit)="onSubmitForm()"></form>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="email"> Email
+                        </label>
+                        <input type="text" class="form-control" id="sign-in-email" formControlName="email">
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" [disabled]="signInForm.invalid">Connexion</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                            (click)="hide()">Close</button>
+                    <div class="form-group">
+                        <label for="password"> Mot de passe
+                        </label>
+                        <input type="password" class="form-control" id="sign-in-password" formControlName="password">
                     </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-submit" type="submit" [disabled]="signInForm.invalid">Connexion</button>
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal" (click)="hide()">Close</button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
+
 
 
 <!-- <div class="container">

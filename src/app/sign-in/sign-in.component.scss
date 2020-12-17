@@ -1,41 +1,187 @@
+$colors: (
+  primary: #487CC9,
+  return: #a19d9d,
+  separation:#D5D5D5
+);
 
-svg{
-    // margin: 1.5em auto;
+@function color($name){
+  @return map-get($colors, $name );
+}
+svg {
+  // margin: 1.5em auto;
+  width: 100%;
+  path#cloud-left {
+    fill: #d5d5d5;
+    transform: translate(0 27.6);
+    -webkit-transform: translate(0 27.6);
+  }
+
+  path#cloud-right {
+    fill: #d5d5d5;
+  }
+
+  path#wind {
+    transform: translateY(65px);
+  }
+
+  path#wind-2 {
+    transform: translateY(75px);
+  }
+  path#award-draw {
+    opacity: 0;
+  }
+}
+
+.container{
+  .title{
+    padding-top: 2.5em;
+  }
+}
+
+.connection {
+  padding: 1.5em 0.75em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .btn {
+    font-size: 1.25rem;
+    border-radius: 57px;
+    border: none;
+    color: white;
+    background-color: #487cc9;
+    text-align: center;
+    padding: 1em 2em;
+  }
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  // overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 25vh auto; 
+  display: grid;
+  // min-width: 370px;
+  // max-height: 400px;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.3fr .8fr 0.3fr;
+  grid-template-areas: "header" "body" "footer";
+  height: 50vh;
+  width: 80vw; /* Could be more or less, depending on screen size */
+  border-radius: 10px;
+}
+.modal-header{
+    grid-area: header;
+    background-color: color(primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    path#cloud-left{
-        fill: #D5D5D5;
-        transform: translate(0 27.6);
-        -webkit-transform: translate(0 27.6);
-    }
-    
-    path#cloud-right{
-        fill: #D5D5D5;
-    }
-
-    path#wind{
-        transform: translateY(65px);
+    border-bottom: 1px solid color(separation);
+    border-radius: 10px 10px 0 0;
+    & h5 {
+      text-transform: capitalize;
+      font-weight: bold;
+      font-size: 1.25rem;
+      color: white;
+      margin-left: 1em;
     }
 
-    path#wind-2{
-        transform: translateY(75px);
-
-    }
-    path#award-draw{
-        opacity: 0;
+    & .close{
+      color: #000;
+      font-size: 1rem;
+      font-weight: bold;
+      margin-right: 1em;
     }
 }
 
-.connection{
-    padding: 1.5em .75em;
+.modal-body{
+    grid-area: body;
+    background-color:white;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    padding-top: 2em;
+    & label{
+      margin: 2em 1em;
+      width: 100%;
+      text-transform: capitalize;
+    }
+    & input{
+      width: calc(100% - 3em);
+      max-width: 400px;
+      margin: 0 1em 2em;
+      padding: .5em;
+    }
+}
+
+.modal-footer{
+    grid-area: footer;
+    background-color: white;
+    border-top: 1px solid color(separation);
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
     .btn{
-        font-size: 1.25rem;
-        border-radius: 57px;
-        color: white;
-        background-color: #487CC9;
-        text-align: center;
-        padding: 1em 2em;
+      padding: 1.25em;
+      border: none;
+      border-radius: 5px;
+    }
+    .btn-submit{
+      background-color: color(primary);
+      color: white;
+    }
+    .btn-cancel{
+      background-color: color(cancel);
     }
 }
+/* The Close Button */
+// .close {
+//   color: #000;
+//   font-size: 1rem;
+//   font-weight: bold;
+// }
+
+// /* Close button on hover */
+// .close:hover,
+// .close:focus {
+//   color: red;
+//   cursor: pointer;
+// }
+
+// /* Add Zoom Animation */
+// .animate {
+//   -webkit-animation: animatezoom 0.6s;
+//   animation: animatezoom 0.6s;
+// }
+
+// @-webkit-keyframes animatezoom {
+//   from {
+//     -webkit-transform: scale(0);
+//   }
+//   to {
+//     -webkit-transform: scale(1);
+//   }
+// }
+
+// @keyframes animatezoom {
+//   from {
+//     transform: scale(0);
+//   }
+//   to {
+//     transform: scale(1);
+//   }
+// }
