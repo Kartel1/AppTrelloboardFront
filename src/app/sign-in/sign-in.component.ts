@@ -6,17 +6,19 @@ import { UserService } from './../services/user.service';
 import { pipe, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding, Directive, Renderer2 } from '@angular/core';
 import { share } from 'rxjs/operators';
 import { left } from '@popperjs/core';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
+  // host: {'class': 'showModal'}
 })
-export class SignInComponent implements OnInit, OnDestroy {
 
+export class SignInComponent implements OnInit, OnDestroy {
+@Directive({selector: 'body'})
   signInForm: FormGroup;
   userSubscription: Subscription;
   authSubscription: Subscription;
@@ -27,7 +29,9 @@ export class SignInComponent implements OnInit, OnDestroy {
   constructor(private formbuilder: FormBuilder,
               private userService: UserService,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private renderer: Renderer2) {
+               }
 
   ngOnInit(): void {
     this.initForm();
@@ -86,11 +90,12 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   show() {
     this.showModal = true;
-
+    this.renderer.addClass(document.body, 'modal-open')
   }
 
   hide() {
     this.showModal = false;
+    this.renderer.removeClass(document.body, 'modal-open');
   }
   intro() {
     const tl = new TimelineMax({ defaults: { duration: 1.5, opacity: 0 } });

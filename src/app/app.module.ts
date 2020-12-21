@@ -22,6 +22,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { ProfileTableComponent } from './profile/profile-table/profile-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ReactiveFormsModule,
     HttpClientModule,
     ChartsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [
     AuthService,

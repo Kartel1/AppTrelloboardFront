@@ -4,8 +4,16 @@ $colors: (
   separation:#D5D5D5
 );
 
+$desktop: 1024px;
+
 @function color($name){
   @return map-get($colors, $name );
+}
+
+@mixin desktop {
+  @media screen and (min-width: #{$desktop}){
+    @content;
+  }
 }
 svg {
   // margin: 1.5em auto;
@@ -32,11 +40,6 @@ svg {
   }
 }
 
-.container{
-  .title{
-    padding-top: 2.5em;
-  }
-}
 
 .connection {
   padding: 1.5em 0.75em;
@@ -61,27 +64,43 @@ svg {
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  // overflow: auto; /* Enable scroll if needed */
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-  padding-top: 60px;
+  justify-content: center;
+  align-items: center;
+  // padding-top: 60px;
 }
+
+.modal-dialog{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+
+}
+// form{
+//   height: 100%;
+// }
 
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 25vh auto; 
+  // margin: auto; 
   display: grid;
-  // min-width: 370px;
-  // max-height: 400px;
-  grid-template-columns: 1fr;
-  grid-template-rows: 0.3fr .8fr 0.3fr;
+  // max-width: 600px;
+  // grid-template-columns: 1fr;
+  // grid-template-rows: 0.3fr .8fr 0.3fr;
   grid-template-areas: "header" "body" "footer";
-  height: 50vh;
-  width: 80vw; /* Could be more or less, depending on screen size */
+  width: clamp(300px,80vw,600px);
+  // height: clamp(300px,max(50vh, 42vw),500px);
   border-radius: 10px;
+  @include desktop{
+    height: 50vh;
+  }
 }
 .modal-header{
     grid-area: header;
@@ -90,14 +109,17 @@ svg {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    border-bottom: 1px solid color(separation);
+    // border-bottom: 1px solid color(separation);
     border-radius: 10px 10px 0 0;
-    & h5 {
+    & h4 {
       text-transform: capitalize;
       font-weight: bold;
-      font-size: 1.25rem;
+      // font-size: 1rem;
       color: white;
       margin-left: 1em;
+      @include desktop{
+        font-size: 1.25rem;
+      }
     }
 
     & .close{
@@ -113,24 +135,77 @@ svg {
     background-color:white;
     display: flex;
     flex-direction: column;
-    padding-top: 2em;
+    justify-content: center;
+    // padding-bottom: 2em;
     & label{
-      margin: 2em 1em;
+      // margin: 2em 1em;
       width: 100%;
       text-transform: capitalize;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      pointer-events:none;
+      border-bottom: 1px solid black;
+      & span{
+        font-size: .9rem;
+        @include desktop{
+          font-size: 1rem;
+        }
+      }
+    
+      
     }
     & input{
-      width: calc(100% - 3em);
-      max-width: 400px;
-      margin: 0 1em 2em;
-      padding: .5em;
+      width: 100%;
+      height: 100%;
+      color: rgb(140, 140, 140);
+      padding-top: 1.25em;
+      border: none;
+      outline: none;
     }
+}
+// form{
+//   flex-grow: 1;
+// }
+
+form label::after{
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  bottom: -1px;
+  border-bottom: 3px solid #5d91df;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease;
+}
+
+.content-email, .content-password {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  transform-origin: 0 0;
+  transition: all .3s ease;
+}
+form input:focus + .label-email .content-email, 
+form input:focus + .label-password .content-password,
+form input:not(:placeholder-shown) + .label-email .content-email,
+form input:not(:placeholder-shown) + .label-password .content-password{
+transform: translateY(-100%) scale(.75);
+color: #5d91df;
+}
+
+form input:focus + .label-email::after,
+form input:focus + .label-password::after{
+transform: scaleX(1)
 }
 
 .modal-footer{
     grid-area: footer;
     background-color: white;
-    border-top: 1px solid color(separation);
+    // border-top: 1px solid color(separation);
     border-radius: 0 0 10px 10px;
     display: flex;
     justify-content: space-evenly;
@@ -139,6 +214,7 @@ svg {
       padding: 1.25em;
       border: none;
       border-radius: 5px;
+      margin: 1em;
     }
     .btn-submit{
       background-color: color(primary);
@@ -147,6 +223,16 @@ svg {
     .btn-cancel{
       background-color: color(cancel);
     }
+}
+
+.form-group{
+  position: relative;
+  height: 50px;
+  margin: 1em 1.5em;
+  @include desktop{
+    margin: 1em 3em;
+  }
+
 }
 /* The Close Button */
 // .close {

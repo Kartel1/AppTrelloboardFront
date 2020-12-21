@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   createTimeline(){
-    this.tl.to('.navbar-nav',.6,{display: 'block', scaleY: 1, onReverseComplete:() => {gsap.set('.navbar-nav',{clearProps:'all'})}})
+    this.tl.to('.navbar-nav',.6,{display: 'flex', scaleY: 1, onReverseComplete:() => {gsap.set('.navbar-nav',{clearProps:'all'})}})
     .to('.nav-item', .1,{opacity: 1 , x:0, stagger:.1, onReverseComplete: () => {gsap.set('.nav-item',{clearProps: 'all'})}},"+=.15");
     this.tl.reverse();
     this.tl.pause();

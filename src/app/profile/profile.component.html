@@ -1,17 +1,26 @@
-<div class="container-fluid first-container align-self-center ">
+<div class="container-fluid first-container align-self-center">
   <div class="row">
     <div class="col-sm-3 stack">
       <div class="profile-picture">
         <div class="status">3</div>
         <div class="front">
-          <img src="../../assets/media/Anonymous.png" alt="">
+          <img src="../../assets/media/Anonymous.png" alt="" />
           <h3 class="name">{{user.username}}</h3>
           <div class="infos">
-            <p class="tasks-number">2 tâches </p>
+            <p class="tasks-number">2 tâches</p>
             <div class="roles">
-              <img src="../../assets/media/icons/iconfinder_SEO_awards_969266.svg" alt="">
-              <img src="../../assets/media/icons/iconfinder_Programming_Development_keywords_1743798.svg" alt="">
-              <img src="../../assets/media/icons/iconfinder_seo_programming_1009241.svg" alt="">
+              <img
+                src="../../assets/media/icons/iconfinder_SEO_awards_969266.svg"
+                alt=""
+              />
+              <img
+                src="../../assets/media/icons/iconfinder_Programming_Development_keywords_1743798.svg"
+                alt=""
+              />
+              <img
+                src="../../assets/media/icons/iconfinder_seo_programming_1009241.svg"
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -20,30 +29,46 @@
             <p class="user-detail">Email<span>{{user.email}}</span></p>
           </div>
           <div class="edit-btn">
-            <a routerLink="/edit-profile" class="btn btn-info" role="button">Modifier mes infos</a>
+            <a routerLink="/edit-profile" class="btn btn-info" role="button"
+              >Modifier mes infos</a
+            >
           </div>
           <div class="roles">
             <div class="role">
-              <div class="icon"><img src="../../assets/media/icons/iconfinder_SEO_awards_969266.svg" alt=""></div>
+              <div class="icon">
+                <img
+                  src="../../assets/media/icons/iconfinder_SEO_awards_969266.svg"
+                  alt=""
+                />
+              </div>
               <p class="type">Product Owner</p>
             </div>
             <div class="role">
-              <div class="icon"><img
-                  src="../../assets/media/icons/iconfinder_Programming_Development_keywords_1743798.svg" alt=""></div>
+              <div class="icon">
+                <img
+                  src="../../assets/media/icons/iconfinder_Programming_Development_keywords_1743798.svg"
+                  alt=""
+                />
+              </div>
+
               <p class="type">Admin</p>
             </div>
             <div class="role">
-              <div class="icon"><img src="../../assets/media/icons/iconfinder_seo_programming_1009241.svg" alt=""></div>
+              <div class="icon">
+                <img
+                  src="../../assets/media/icons/iconfinder_seo_programming_1009241.svg"
+                  alt=""
+                />
+              </div>
               <p class="type">Dev</p>
             </div>
           </div>
         </div>
-        <div class="user-back">
-        </div>
+        <div class="user-back"></div>
       </div>
     </div>
-    <div class="col-sm-9 stack">
-      <app-profile-table [cards]="cards" [user]="user"></app-profile-table>
+    <div class="col-sm-9 stack" *ngIf="cards$">
+      <app-profile-table [cards$]="cards$" [user]="user"></app-profile-table>
     </div>
   </div>
 </div>

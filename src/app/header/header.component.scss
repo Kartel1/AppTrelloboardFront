@@ -18,12 +18,16 @@ nav {
   
   @include desktop{
     flex-direction: row;
-    align-items: center;
-    background: var(--primary);
+    align-items: stretch;
+    // background: var(--primary);
   }
   .navbar-brand{
     // width:100%;
     background-color: var(--primary);
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /* @include desktop{
       width: auto;
     } */
@@ -35,9 +39,11 @@ nav {
     transform: scaleY(0);
     transform-origin: top;
     display: none;
+    flex-direction: column;
     @include desktop{
       transform: scaleY(1);
       display: flex;
+      flex-direction: row;
     }
   }
   ul {
@@ -120,6 +126,6 @@ svg{
 
 .nav-list-right{
   @include desktop{
-    justify-content: right;
+    justify-content: flex-end;
   }
 }

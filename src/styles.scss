@@ -13,6 +13,10 @@
 body {
   background: rgb(40, 42, 54);
   background-size: auto auto;
+  &.modal-open{
+    overflow: hidden;
+  }
+  
 }
 
 html,
@@ -20,8 +24,24 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Nunito", sans-serif;
+  height: 100vh;
+  
 }
-
+.root{
+  // display: block;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+.component-container{
+  // min-height: 100%;
+ flex-grow: 1; 
+//  height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
 .first-container {
   padding-top: 5rem;
 }
@@ -77,6 +97,8 @@ p {
 //   }
 .footer {
   text-align: center;
+  margin: 1.5em 0;
+  padding: 1.5em 0;
 }
 
 @media screen and (min-width: 1024px) {
@@ -86,8 +108,7 @@ p {
         135deg,
         //   transparent 0%,
           //   transparent 17%,
-          //   rgba(87, 146, 234, 0.6) 0%,
-          //
+          rgba(87, 146, 234, 0.6) 0%,
           rgba(87, 146, 234, 0.6) 59%,
         transparent 59%,
         transparent 64%,
@@ -116,4 +137,15 @@ p {
     //   padding-left: 150px;
     //   padding-right: 150px;
   }
+}
+
+
+.component{
+  // height: 100%;
+  flex-grow: 1;
+  display: flex;
+}
+
+.container{
+  flex-grow: 1;
 }
