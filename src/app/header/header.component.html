@@ -173,7 +173,7 @@
             class="nav-link"
             routerLinkActive="active"
             routerLink="sign-in"
-            *ngIf="!authStatus"
+            *ngIf="!(isAuth$ | async)"
             ><span class="hidden">Se Connecter</span>
             <!-- <img
               src="../../assets/media/icons/iconfinder_running_1054988.svg"
@@ -208,7 +208,7 @@
             class="nav-link"
             routerLinkActive="active"
             routerLink="sign-up"
-            *ngIf="!authStatus"
+            *ngIf="!(isAuth$ | async)"
             ><span class="hidden">Créer un Compte</span>
             <!-- <img
               src="../../assets/media/icons/iconfinder_compose_1055085.svg"
@@ -230,8 +230,12 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" *ngIf="authStatus" (click)="onLogout()"
-            ><span class="hidden">Se déconnecter</span>
+          <a
+            class="nav-link"
+            routerLinkActive="active"
+            *ngIf="isAuth$ | async"
+            (click)="onLogout()"
+            ><span class="hidden" style="cursor: pointer">Se déconnecter</span>
             <!-- <img
               src="../../assets/media/icons/iconfinder_power_1055002.svg"
               alt=""

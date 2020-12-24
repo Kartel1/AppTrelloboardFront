@@ -1,3 +1,4 @@
+import { UserEffects } from './state-management/effects';
 import { BackendService } from './services/backend.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
@@ -23,6 +24,11 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { ProfileTableComponent } from './profile/profile-table/profile-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers, metaReducers } from './state-management/index';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +43,8 @@ import { StoreModule } from '@ngrx/store';
     ProfileTableComponent,
     UserEditComponent,
     FooterComponent,
-    ConfigurationComponent
-
+    ConfigurationComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,14 +54,14 @@ import { StoreModule } from '@ngrx/store';
     HttpClientModule,
     ChartsModule,
     FlexLayoutModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([UserEffects]),
   ],
-  providers: [
-    AuthService,
-    AuthGuard,
-    UserService,
-    BackendService
-  ],
+  providers: [AuthService, AuthGuard, UserService, BackendService],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

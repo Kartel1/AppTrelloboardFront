@@ -10,8 +10,15 @@
     <div class="col">
       <!-- <div style="display: block" *ngIf="isChartReady"> -->
       <div style="display: block" *ngIf="isChartReady">
-        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-          [legend]="barChartLegend" [chartType]="barChartType" style="background-color: whitesmoke">
+        <canvas
+          baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          style="background-color: whitesmoke"
+        >
         </canvas>
       </div>
     </div>

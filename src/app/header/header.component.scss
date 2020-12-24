@@ -1,27 +1,26 @@
 $desktop: 1024px;
 
 @mixin desktop {
-  @media screen and (min-width: #{$desktop}){
+  @media screen and (min-width: #{$desktop}) {
     @content;
   }
 }
 
-
-header{
-  top:0;
+header {
+  top: 0;
   width: 100%;
 }
 
 nav {
   display: flex;
   flex-direction: column;
-  
-  @include desktop{
+
+  @include desktop {
     flex-direction: row;
     align-items: stretch;
     // background: var(--primary);
   }
-  .navbar-brand{
+  .navbar-brand {
     // width:100%;
     background-color: var(--primary);
     flex-grow: 1;
@@ -32,100 +31,98 @@ nav {
       width: auto;
     } */
   }
-  
-  .navbar-nav{
+
+  .navbar-nav {
     width: 100%;
     overflow: hidden;
     transform: scaleY(0);
     transform-origin: top;
     display: none;
     flex-direction: column;
-    @include desktop{
+    @include desktop {
       transform: scaleY(1);
       display: flex;
       flex-direction: row;
     }
   }
   ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  background-color: var(--primary);
-  overflow: hidden;
-  opacity: 1;
-  @include desktop{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    background-color: var(--primary);
+    overflow: hidden;
     opacity: 1;
-    display: flex;
-    align-items: center;
-  }
+    @include desktop {
+      opacity: 1;
+      display: flex;
+      align-items: center;
+    }
 
-  li a{
-    display: flex;
-    align-items: center;
-    flex-direction: row-reverse;
-    justify-content: start;
-    -webkit-justify-content: flex-end;
-     & span{
-      color: white;
-      font-size: 1rem;
+    li a {
+      display: flex;
+      align-items: center;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+      -webkit-justify-content: flex-end;
+      & span {
+        color: white;
+        font-size: 1rem;
+      }
     }
   }
-}
-
 }
 a {
   text-decoration: none;
 }
-span{
+span {
   color: white;
   font-size: 1.25rem;
   font-weight: bold;
 }
 
-svg{
+svg {
   width: 100%;
   max-width: 2rem;
   margin-right: 1em;
 }
 
-.nav-link{
- padding: 1em;
+.nav-link {
+  padding: 1em;
 }
 
-
-.menu{
+.menu {
   position: absolute;
   top: 0;
   right: 0;
   margin-top: 1em;
   cursor: pointer;
-  @include desktop{
+  @include desktop {
     display: none;
   }
 }
-.nav-item{
+.nav-item {
   background-color: var(--primary);
   opacity: 0;
   transform: translateX(-20px);
   transition: 600ms;
-  @include desktop{
+  @include desktop {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
-.nav-item:hover{
-  filter: grayscale(100%) opacity(.7);
-  }
-  
-.ionicon{
+.nav-item:hover {
+  filter: grayscale(100%) opacity(0.7);
+}
+
+.ionicon {
   color: white;
   min-width: 2rem;
 }
 
-.nav-list-right{
-  @include desktop{
+.nav-list-right {
+  @include desktop {
     justify-content: flex-end;
   }
 }

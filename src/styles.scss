@@ -2,21 +2,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
 :root {
   --clr-dark: rgb(13, 17, 19);
-  --primary: #487CC9;
+  --primary: #487cc9;
   --br: 0.5em;
   --transition: transform 200ms cubic-bezier(0.27, 0.76, 0.31, 0.78);
 
   --desktop: 1024px;
-  
 }
 
 body {
   background: rgb(40, 42, 54);
   background-size: auto auto;
-  &.modal-open{
+  &.modal-open {
     overflow: hidden;
   }
-  
 }
 
 html,
@@ -25,30 +23,30 @@ body {
   margin: 0;
   font-family: "Nunito", sans-serif;
   height: 100vh;
-  
 }
-.root{
+.root {
   // display: block;
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
 }
-.component-container{
+.component-container {
   // min-height: 100%;
- flex-grow: 1; 
-//  height: 100vh;
- display: flex;
- justify-content: center;
- align-items: center;
+  flex-grow: 1;
+  //  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .first-container {
   padding-top: 5rem;
 }
 
-*, *::before, *::after{
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-
 }
 
 // @media screen and (max-width: 400px) {
@@ -57,8 +55,6 @@ body {
 //   }
 
 // }
-
-
 
 .container-fluid * .container-fluid {
   padding-top: 15px;
@@ -71,18 +67,18 @@ p {
   margin: 0;
 }
 
-.title{
+.title {
   font-size: 2.25rem;
   text-align: center;
-  margin: 1.5em .75em;
+  margin: 1.5em 0.75em;
   color: white;
   font-weight: bold;
 }
 
-.subtitle{
+.subtitle {
   text-align: center;
   font-size: 1rem;
-  margin: 1.5em .75em;
+  margin: 1.5em 0.75em;
   color: white;
 }
 
@@ -107,9 +103,9 @@ p {
       linear-gradient(
         135deg,
         //   transparent 0%,
-          //   transparent 17%,
-          rgba(87, 146, 234, 0.6) 0%,
-          rgba(87, 146, 234, 0.6) 59%,
+        //   transparent 17%,
+        rgba(87, 146, 234, 0.6) 0%,
+        rgba(87, 146, 234, 0.6) 59%,
         transparent 59%,
         transparent 64%,
         rgba(34, 81, 222, 0.6) 64%,
@@ -118,8 +114,8 @@ p {
       linear-gradient(
         45deg,
         //   transparent 0%,
-          //   transparent 2%,
-          rgb(87, 146, 234) 0%,
+        //   transparent 2%,
+        rgb(87, 146, 234) 0%,
         rgb(87, 146, 234) 46%,
         rgb(114, 178, 239) 46%,
         rgb(114, 178, 239) 54%,
@@ -139,13 +135,12 @@ p {
   }
 }
 
-
-.component{
+.component {
   // height: 100%;
   flex-grow: 1;
   display: flex;
 }
 
-.container{
+.container {
   flex-grow: 1;
 }

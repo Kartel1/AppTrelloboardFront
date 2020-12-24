@@ -1,31 +1,37 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3">
-            <h2 class="text-align">Paramètre de sélection</h2>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col">
-                        <h4>Choix du Sprint: </h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                Sprint
-                            </button>
-                            <div class="dropdown-menu">
-                                <ng-container *ngFor="let sprint of sprints; let i = index">
-                                    <a class="dropdown-item" (click)="OnSelectedSprint(i)">{{sprint.sprint_number}}</a>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <h2 class="text-align">Paramètre de sélection</h2>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <h4>Choix du Sprint:</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="dropdown">
+              <button
+                type="button"
+                class="btn btn-primary dropdown-toggle"
+                data-toggle="dropdown"
+              >
+                Sprint
+              </button>
+              <div class="dropdown-menu">
+                <ng-container *ngFor="let sprint of sprints; let i = index">
+                  <a class="dropdown-item" (click)="OnSelectedSprint(i)">{{
+                    sprint.sprint_number
+                  }}</a>
+                </ng-container>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="col-sm-9" *ngIf="selectedSprint">
-            <app-chart [selectedSprint]="selectedSprint" [user]="user"></app-chart>
-        </div>
+      </div>
     </div>
+    <div class="col-sm-9" *ngIf="selectedSprint">
+      <app-chart [selectedSprint]="selectedSprint" [user]="user"></app-chart>
+    </div>
+  </div>
 </div>
