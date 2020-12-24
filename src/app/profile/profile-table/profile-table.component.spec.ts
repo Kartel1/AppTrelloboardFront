@@ -6,12 +6,13 @@ describe('ProfileTableComponent', () => {
   let component: ProfileTableComponent;
   let fixture: ComponentFixture<ProfileTableComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProfileTableComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ProfileTableComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProfileTableComponent);

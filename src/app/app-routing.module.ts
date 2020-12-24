@@ -8,18 +8,18 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './services/auth-guard.service';
-
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: 'board',
     canActivate: [AuthGuard],
-    component: BoardsComponent
+    component: BoardsComponent,
   },
   {
     path: 'edit-profile',
     canActivate: [AuthGuard],
-    component: UserEditComponent
+    component: UserEditComponent,
   },
   {
     path: 'profile',
@@ -28,31 +28,34 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ProfileTableComponent
-      }
-    ]
+        component: ProfileTableComponent,
+      },
+    ],
   },
   {
     path: 'sign-in',
-    component: SignInComponent
-  },
-  { path: '',
-    redirectTo: 'sign-in',
-    pathMatch: 'full'
+    component: SignInComponent,
   },
   {
     path: 'sign-up',
-    component: SignUpComponent
+    component: SignUpComponent,
   },
   {
     path: 'home',
     canActivate: [AuthGuard],
-    component: HomeComponent
-  }
+    component: HomeComponent,
+  },
+  {
+    path: '',
+    redirectTo: '/sign-in',
+    pathMatch: 'full',
+  },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

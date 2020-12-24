@@ -1,5 +1,8 @@
 import { UserLoginInfoImpl } from './../models/UserLoginInfoImpl.model';
-import { UserLoginInfo, PersonneEntity } from './../interfaces/user-login-infos';
+import {
+  UserLoginInfo,
+  PersonneEntity,
+} from './../interfaces/user-login-infos';
 import { Subscription } from 'rxjs';
 import { User } from './../models/User.models';
 import { Router } from '@angular/router';
@@ -10,41 +13,37 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  styleUrls: ['./user-edit.component.scss'],
 })
 export class UserEditComponent implements OnInit, OnDestroy {
-
   userEditForm: FormGroup;
   user: UserLoginInfo;
   userSubscription: Subscription;
   newUser = {} as UserLoginInfo;
   newPersonne = {} as PersonneEntity;
-  constructor(private formBuilder: FormBuilder,
-              private userService: UserService,
-              private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {}
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.userSubscription = this.userService.userSubject.subscribe(
-      (user: UserLoginInfo) => {
-        this.user = user;
-      }
+    this.userSubscription = this.userService.user$.subscribe(
+      (user) => (this.user = user)
     );
-    this.userService.emitUser();
     this.initForm();
   }
 
   initForm() {
-    this.userEditForm = this.formBuilder.group(
-      {
-        firstName: [this.user.first_name, [Validators.required]],
-        lastName: [this.user.last_name, [Validators.required]],
-        email: [this.user.email, [Validators.required, Validators.email]],
-        userName: [this.user.username, [Validators.required]]
-      }
-    );
+    this.userEditForm = this.formBuilder.group({
+      firstName: [this.user.first_name, [Validators.required]],
+      lastName: [this.user.last_name, [Validators.required]],
+      email: [this.user.email, [Validators.required, Validators.email]],
+      userName: [this.user.username, [Validators.required]],
+    });
   }
   onSubmitForm() {
     const formValue = this.userEditForm.value;
@@ -54,8 +53,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       slug: this.user.personne[0].slug,
       trello_id: this.user.personne[0].trello_id,
       user_infos: this.user.personne[0].user_infos,
-      organizations: this.user.personne[0].organizations
-
+      organizations: this.user.personne[0].organizations,
     };
 
     this.newUser = {
@@ -66,16 +64,14 @@ export class UserEditComponent implements OnInit, OnDestroy {
       username: formValue['userName'],
       is_authenticated: this.user.is_authenticated,
       personne: [this.newPersonne],
-      is_active: this.user.is_active
+      is_active: this.user.is_active,
     };
 
     this.userService.setUser(this.newUser);
-    this.userService.emitUser();
     this.router.navigate(['/profile']);
   }
 
   onCancel() {
     this.router.navigate(['/profile']);
   }
-
 }

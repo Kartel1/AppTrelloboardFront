@@ -1,39 +1,39 @@
 import { share } from 'rxjs/operators';
-import { CardTracking, SprintEntity } from './../interfaces/card-by-user';
+import { SprintEntity } from './../interfaces/card-by-user';
 import { UserService } from './../services/user.service';
 import { BackendService } from './../services/backend.service';
-import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import * as moment from 'moment';
-import { Subscription, Observable, of } from 'rxjs';
 import { TrelloCard } from '../interfaces/card-by-user';
 import { UserLoginInfo } from '../interfaces/user-login-infos';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss']
+  styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit, OnDestroy, OnChanges {
-
   @Input() user: UserLoginInfo;
-  // userSubscription: Subscription;
   cards: TrelloCard[];
-  // cardSubscription: Subscription;
   @Input() selectedSprint: SprintEntity;
-  // selectedSprintSubscription: Subscription;
   dataToDisplay: number[];
   isChartReady = false;
 
-
-  constructor(private backendService: BackendService,
-              private userService: UserService) {
-
-  }
-  
+  constructor(
+    private backendService: BackendService,
+    private userService: UserService
+  ) {}
 
   public barChartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
   };
   public barChartLabels = [];
   public barChartType = 'line';
@@ -41,7 +41,6 @@ export class ChartComponent implements OnInit, OnDestroy, OnChanges {
   public barChartData = [];
 
   ngOnInit(): void {
-
     // this.userSubscription = this.userService.userSubject.subscribe(
     //   (user: UserLoginInfo) => {
     //     this.user = user;
@@ -103,37 +102,45 @@ export class ChartComponent implements OnInit, OnDestroy, OnChanges {
     const beggingDate = moment(this.selectedSprint.start_date, 'YYYY-MM-DD');
     const endDate = moment(this.selectedSprint.end_date, 'YYYY-MM-DD');
     const duration = endDate.diff(beggingDate, 'days');
-    const currentDay = endDate.diff(dateMoment, 'days') > 0 ? dateMoment.diff(beggingDate, 'days') : duration;
-    this.backendService.getTrelloBoardCardEffort(this.user, this.selectedSprint.sprint_number, currentDay).pipe(share()).subscribe(
-      (value: TrelloCard[]) => {
-        this.cards = value;
-        // this.backendService.setCard(value);
-        // this.backendService.emitCard();
-        for (const card of this.cards) {
-          if (card.effort) {
-            globalEffort += card.effort;
+    const currentDay =
+      endDate.diff(dateMoment, 'days') > 0
+        ? dateMoment.diff(beggingDate, 'days')
+        : duration;
+    this.backendService
+      .getTrelloBoardCardEffort(
+        this.user,
+        this.selectedSprint.sprint_number,
+        currentDay
+      )
+      .pipe(share())
+      .subscribe(
+        (value: TrelloCard[]) => {
+          this.cards = value;
+          for (const card of this.cards) {
+            if (card.effort) {
+              globalEffort += card.effort;
+            }
           }
+          for (let i = 0; i <= duration; i++) {
+            this.barChartLabels.push(i);
+            leadingCoeff = -(globalEffort / duration) * i + globalEffort;
+            idealLine.push(leadingCoeff);
+          }
+          this.barChartData.push({ data: idealLine, label: 'Ideal' });
+          this.dataToDisplay = this.formatData(this.cards, duration);
+          // this.barChartData.push({ data: this.dataToDisplay, label: 'Current', borderColor: 'rgba(0, 204, 255,1)', backgroundColor: 'rgba(0, 204, 255,0.4)', pointHoverBorderColor: 'rgba(0, 204, 255,0.8)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff' });
+          this.barChartData.push({
+            data: this.dataToDisplay,
+            label: 'Current',
+          });
+          this.isChartReady = true;
+        },
+        (error) => {
+          console.log(error);
         }
-        for (let i = 0; i <= duration; i++) {
-          this.barChartLabels.push(i);
-          leadingCoeff = -(globalEffort / duration) * i + globalEffort;
-          idealLine.push(leadingCoeff);
-        }
-        this.barChartData.push({ data: idealLine, label: 'Ideal' });
-        this.dataToDisplay = this.formatData(this.cards, duration);
-        // this.barChartData.push({ data: this.dataToDisplay, label: 'Current', borderColor: 'rgba(0, 204, 255,1)', backgroundColor: 'rgba(0, 204, 255,0.4)', pointHoverBorderColor: 'rgba(0, 204, 255,0.8)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff' });
-        this.barChartData.push({ data: this.dataToDisplay, label: 'Current'});
-        this.isChartReady = true;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      );
   }
-  ngOnDestroy(): void {
-    // this.userSubscription.unsubscribe();
-    // this.cardSubscription.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 
   formatData(cardToFormat: TrelloCard[], duration: number): number[] {
     let finalArray: number[] = [];
