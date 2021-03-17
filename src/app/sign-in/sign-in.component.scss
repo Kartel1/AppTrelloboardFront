@@ -17,11 +17,18 @@ $desktop: 1024px;
 }
 svg {
   // margin: 1.5em auto;
+  @include desktop {
+    transform: scale(2.5);
+  }
   width: 100%;
   path#cloud-left {
     fill: #d5d5d5;
     transform: translate(0 27.6);
     -webkit-transform: translate(0 27.6);
+
+    @include desktop {
+      width: 50%;
+    }
   }
 
   path#cloud-right {

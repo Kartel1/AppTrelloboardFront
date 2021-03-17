@@ -51,19 +51,18 @@ export class SignInComponent implements OnInit, OnDestroy {
     const email = 'email';
     const password = 'password';
     this.auth = new AuthModel(formValue[email], formValue[password], false);
+    this.modalToggle();
     this.store.dispatch(new LoadUserLoginAction(this.auth));
   }
 
   ngOnDestroy() {}
 
   show() {
-    this.showModal = true;
-    this.renderer.addClass(document.body, 'modal-open');
+    this.modalToggle();
   }
 
   hide() {
-    this.showModal = false;
-    this.renderer.removeClass(document.body, 'modal-open');
+    this.modalToggle();
   }
   intro() {
     const tl = new TimelineMax({ defaults: { duration: 1.5, opacity: 0 } });
@@ -80,5 +79,12 @@ export class SignInComponent implements OnInit, OnDestroy {
       )
       .to('#icon-43-wind', 2, { opacity: 1, translateX: -70 }, '-=2')
       .to('#icon-43-wind-2', 2, { opacity: 1, translateX: 160 }, '-=2');
+  }
+
+  modalToggle() {
+    this.showModal
+      ? this.renderer.removeClass(document.body, 'modal-open')
+      : this.renderer.addClass(document.body, 'modal-open');
+    this.showModal = !this.showModal;
   }
 }
