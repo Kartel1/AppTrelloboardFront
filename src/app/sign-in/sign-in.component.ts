@@ -10,6 +10,7 @@ import {
   OnDestroy,
   Directive,
   Renderer2,
+  HostListener,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -25,6 +26,10 @@ export class SignInComponent implements OnInit, OnDestroy {
   showModal = false;
   loading$: Observable<boolean>;
   error$: Observable<Error>;
+  mql = window.matchMedia('(min-width: 700px)');
+  /* mql2 = window.matchMedia('(min-width: 1024px)');
+  mqlList: MediaQueryList[] = [this.mql, this.mql2]; */
+  tl = new TimelineMax({ defaults: { duration: 1.5, opacity: 0 } });
 
   constructor(
     private formbuilder: FormBuilder,
@@ -34,7 +39,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-    this.intro();
+    this.intro(this.mql);
   }
 
   initForm(): void {
@@ -45,6 +50,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.pattern(/[a-zA-Z0-9]{6,9}/)],
       ],
     });
+    console.log(this.signInForm.controls);
   }
   onSubmitForm() {
     const formValue = this.signInForm.value;
@@ -64,21 +70,58 @@ export class SignInComponent implements OnInit, OnDestroy {
   hide() {
     this.modalToggle();
   }
-  intro() {
-    const tl = new TimelineMax({ defaults: { duration: 1.5, opacity: 0 } });
-    tl.to('#cloud-left', 2, {
-      opacity: 1,
-      translateX: -70 /* ease: Back.easeInOut */,
-    })
-      .to('#cloud-right', 2, { opacity: 1, translateX: 140 }, '-=2')
-      .to(
-        'path#award-draw',
-        2,
-        { opacity: 1, transformOrigin: 'center', translateX: -60 },
-        '-=2'
-      )
-      .to('#icon-43-wind', 2, { opacity: 1, translateX: -70 }, '-=2')
-      .to('#icon-43-wind-2', 2, { opacity: 1, translateX: 160 }, '-=2');
+  intro(mqlList: MediaQueryList) {
+    if (mqlList.matches) {
+      this.tl.clear();
+      this.tl
+        // .set('#cloud-l', { clearProps: 'all' })
+        .to('#cloud-l', 2, {
+          opacity: 1,
+          translateX: -200 /* ease: Back.easeInOut */,
+        })
+        .to('#cloud-r', 2, { opacity: 1, translateX: 190 }, '-=2')
+        .to(
+          '#trophy',
+          2,
+          { opacity: 1, transformOrigin: 'center', translateX: 20 },
+          '-=2'
+        )
+        .to('#wind-l', 2, { opacity: 1, translateX: -170 }, '-=2')
+        .to('#wind-r', 2, { opacity: 1, translateX: 400 }, '-=2');
+    } /* else if (mqlList[1].matches) {
+      this.tl.clear();
+      this.tl
+        // .set('#cloud-l', { clearProps: 'all' })
+        .to('#cloud-l', 2, {
+          opacity: 1,
+          translateX: -200 , ease: Back.easeInOut,
+        })
+        .to('#cloud-r', 2, { opacity: 1, translateX: 190 }, '-=2')
+        .to(
+          '#trophy',
+          2,
+          { opacity: 1, transformOrigin: 'center', translateX: 20 },
+          '-=2'
+        )
+        .to('#wind-l', 2, { opacity: 1, translateX: -120 }, '-=2')
+        .to('#wind-r', 2, { opacity: 1, translateX: 400 }, '-=2');
+    } */ else {
+      this.tl
+        .clear()
+        .to('#cloud-l', 2, {
+          opacity: 1,
+          translateX: -70 /* ease: Back.easeInOut */,
+        })
+        .to('#cloud-r', 2, { opacity: 1, translateX: 90 }, '-=2')
+        .to(
+          '#trophy',
+          2,
+          { opacity: 2, transformOrigin: 'center', translateX: 35 },
+          '-=2'
+        )
+        .to('#wind-l', 2, { opacity: 1, translateX: -65 }, '-=2')
+        .to('#wind-r', 2, { opacity: 1, translateX: 150 }, '-=2');
+    }
   }
 
   modalToggle() {
@@ -86,5 +129,11 @@ export class SignInComponent implements OnInit, OnDestroy {
       ? this.renderer.removeClass(document.body, 'modal-open')
       : this.renderer.addClass(document.body, 'modal-open');
     this.showModal = !this.showModal;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.tl.set('symbol', { clearProps: 'all' });
+    this.intro(this.mql);
   }
 }

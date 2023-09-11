@@ -13,6 +13,9 @@ import {
 import * as moment from 'moment';
 import { TrelloCard } from '../interfaces/card-by-user';
 import { UserLoginInfo } from '../interfaces/user-login-infos';
+import { Store } from '@ngrx/store';
+import { AppState } from '../state-management/app-state.model';
+import * as fromAppState from '../state-management/app-state.model';
 
 @Component({
   selector: 'app-chart',
@@ -28,7 +31,8 @@ export class ChartComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private backendService: BackendService,
-    private userService: UserService
+    private userService: UserService,
+    private store: Store<AppState>
   ) {}
 
   public barChartOptions = {
@@ -58,42 +62,83 @@ export class ChartComponent implements OnInit, OnDestroy, OnChanges {
     //     this.selectedSprint = selectedSprint;
     //   }
     // );
-    // this.backendService.emitSelectedSprint();
-    // let globalEffort = 0;
-    // let leadingCoeff: number;
-    // const idealLine: number[] = [];
-    // const date = new Date(Date.now());
-    // const dateMoment = moment(date, 'DD/MM/YYYY');
-    // const beggingDate = moment(this.selectedSprint.start_date, 'YYYY-MM-DD');
-    // const endDate = moment(this.selectedSprint.end_date, 'YYYY-MM-DD');
-    // const duration = endDate.diff(beggingDate, 'days');
-    // const currentDay = endDate.diff(dateMoment, 'days') > 0 ? dateMoment.diff(beggingDate, 'days') : duration;
-    // this.backendService.getTrelloBoardCardEffort(this.user, this.selectedSprint.sprint_number, currentDay).pipe(share()).subscribe(
-    //   (value: TrelloCard[]) => {
-    //     // this.backendService.setCard(value);
-    //     // this.backendService.emitCard();
-    //     for (const card of this.cards) {
-    //       if (card.effort) {
-    //         globalEffort += card.effort;
-    //       }
-    //     }
-    //     for (let i = 0; i <= duration; i++) {
-    //       this.barChartLabels.push(i);
-    //       leadingCoeff = -(globalEffort / duration) * i + globalEffort;
-    //       idealLine.push(leadingCoeff);
-    //     }
-    //     this.barChartData.push({ data: idealLine, label: 'Ideal' });
-    //     this.dataToDisplay = this.formatData(this.cards, duration);
-    //     // this.barChartData.push({ data: this.dataToDisplay, label: 'Current', borderColor: 'rgba(0, 204, 255,1)', backgroundColor: 'rgba(0, 204, 255,0.4)', pointHoverBorderColor: 'rgba(0, 204, 255,0.8)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff' });
-    //     this.barChartData.push({ data: this.dataToDisplay, label: 'Current'});
-    //     this.isChartReady = true;
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
+    /* this.store
+      .select(fromAppState.selLog)
+      .subscribe((user) => (this.user = user)); */
+    /*  if (this.barChartData.length > 0) {
+      this.barChartData = [];
+    }
+    if (this.barChartLabels.length > 0) {
+      this.barChartLabels = [];
+    }
+    this.backendService.emitSelectedSprint();
+    let globalEffort = 0;
+    let leadingCoeff: number;
+    const idealLine: number[] = [];
+    const date = new Date(Date.now());
+    const dateMoment = moment(date, 'DD/MM/YYYY');
+    const beggingDate = moment(this.selectedSprint.start_date, 'YYYY-MM-DD');
+    const endDate = moment(this.selectedSprint.end_date, 'YYYY-MM-DD');
+    const duration = endDate.diff(beggingDate, 'days');
+    const currentDay =
+      endDate.diff(dateMoment, 'days') > 0
+        ? dateMoment.diff(beggingDate, 'days')
+        : duration;
+    this.backendService
+      .getTrelloBoardCardEffort(
+        this.user,
+        this.selectedSprint.sprint_number,
+        currentDay
+      )
+      .pipe(share())
+      .subscribe(
+        (value: TrelloCard[]) => {
+          // this.backendService.setCard(value);
+          // this.backendService.emitCard();
+          for (const card of this.cards) {
+            if (card.effort) {
+              globalEffort += card.effort;
+            }
+          }
+          for (let i = 0; i <= duration; i++) {
+            this.barChartLabels.push(i);
+            leadingCoeff = -(globalEffort / duration) * i + globalEffort;
+            idealLine.push(leadingCoeff);
+          }
+          this.barChartData.push({ data: idealLine, label: 'Ideal' });
+          this.dataToDisplay = this.formatData(this.cards, duration);
+          this.barChartData.push({
+            data: this.dataToDisplay,
+            label: 'Current',
+            borderColor: 'rgba(0, 204, 255,1)',
+            backgroundColor: 'rgba(0, 204, 255,0.4)',
+            pointHoverBorderColor: 'rgba(0, 204, 255,0.8)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+          });
+          this.barChartData.push({
+            data: this.dataToDisplay,
+            label: 'Current',
+          });
+          this.isChartReady = true;
+        },
+        (error) => {
+          console.log(error);
+        }
+      ); */
   }
   ngOnChanges(changes: SimpleChanges): void {
+    if (this.barChartData.length > 0) {
+      this.barChartData = [];
+    }
+    if (this.barChartLabels.length > 0) {
+      this.barChartLabels = [];
+    }
+
+    /* if (this.dataToDisplay.length > 0) {
+      this.dataToDisplay = [];
+    } */
+
     let globalEffort = 0;
     let leadingCoeff: number;
     const idealLine: number[] = [];
@@ -124,15 +169,32 @@ export class ChartComponent implements OnInit, OnDestroy, OnChanges {
           for (let i = 0; i <= duration; i++) {
             this.barChartLabels.push(i);
             leadingCoeff = -(globalEffort / duration) * i + globalEffort;
+            leadingCoeff = leadingCoeff < 0 ? 0 : leadingCoeff;
             idealLine.push(leadingCoeff);
           }
-          this.barChartData.push({ data: idealLine, label: 'Ideal' });
+          this.barChartData.push({
+            data: idealLine,
+            label: 'Ideal',
+            borderColor: 'rgba(255, 51, 51, 1)',
+            backgroundColor: 'rgba(255, 51, 51,0.4)',
+            pointHoverBorderColor: 'rgba(255, 51, 51,0.8)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+          });
           this.dataToDisplay = this.formatData(this.cards, duration);
-          // this.barChartData.push({ data: this.dataToDisplay, label: 'Current', borderColor: 'rgba(0, 204, 255,1)', backgroundColor: 'rgba(0, 204, 255,0.4)', pointHoverBorderColor: 'rgba(0, 204, 255,0.8)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff' });
           this.barChartData.push({
             data: this.dataToDisplay,
             label: 'Current',
+            borderColor: 'rgba(0, 204, 255,1)',
+            backgroundColor: 'rgba(0, 204, 255,0.4)',
+            pointHoverBorderColor: 'rgba(0, 204, 255,0.8)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
           });
+          /* this.barChartData.push({
+            data: this.dataToDisplay,
+            label: 'Current',
+          }); */
           this.isChartReady = true;
         },
         (error) => {
@@ -140,7 +202,14 @@ export class ChartComponent implements OnInit, OnDestroy, OnChanges {
         }
       );
   }
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    if (this.barChartData.length > 0) {
+      this.barChartData = [];
+    }
+    if (this.barChartLabels.length > 0) {
+      this.barChartLabels = [];
+    }
+  }
 
   formatData(cardToFormat: TrelloCard[], duration: number): number[] {
     let finalArray: number[] = [];
