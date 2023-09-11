@@ -55,5 +55,9 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.5"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Kartel1/AppTrelloboardFront.git",
+  "author": "<kartel.devllu@gmail.com>",
+  "license": "MIT"
 }
